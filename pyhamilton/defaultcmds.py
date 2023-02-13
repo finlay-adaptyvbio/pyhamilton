@@ -4,6 +4,7 @@ Built-in commands, definitions of their parameters, and defaults.
 
 _channel_patt_16 = '1'*8 + '0'*8
 _channel_patt_96 = '1'*96
+_channel_patt_384 = '1'*384
 
 _fan_port = 6
 # on module load, scan COM ports to see if the usual fan COM number (6) has been reassigned by the OS
@@ -144,7 +145,68 @@ defaults_by_cmd = { # 'field':None indicates field is required when assembling c
         'zMoveAfterStep':0, # (integer) 0=normal, 1=Minimized (Attention!!! this depends on labware clearance height, can crash). 
         'sideTouch':0 # (integer) 0=Off , 1=On
     }),
-
+    "mph384TipPickUp": (
+        "PICKUP384",
+        {
+            "tipSequence": "",  # (string) leave empty if you are going to provide specific labware-positions below
+            "labwarePositions": "",  # (string) leave empty if you are going to provide a sequence name above. 'LabwareId1, positionId1; LabwareId2,positionId2; ....' Must contain 96 values
+            "tipMode": 0,  # (integer) 0=All, 1=96 Tips, 2=Tip lifter
+            "headPatternVariable": _channel_patt_384,  # (string) channel Variable e.g. "11110000...." . Must contain 96 values
+            "sequenceCounting": 0,  # (integer) 0=don´t autoincrement,  1=Autoincrement
+            "reducedPatternMode": 0,  # (integer) 0=All (not reduced), 1=One channel, 2=Quarter  3=Row(s), 4=Column(s)
+            "headPatternAsVariable": 0,  # (integer) 0=Off, 1=Column pattern, 2=384 manual pattern, 3=96 manual pattern, 4=Row pattern
+            "pickUpFromTipLifter": 0,  # (integer) 0=Off, 1= One column, 2=Two columns, 3=All remaining tips
+        },
+    ),
+    "mph384TipEject": (
+        "EJECT384",
+        {
+            "wasteSequence": "",  # (string) leave empty if you are going to provide specific labware-positions below or ejecting to default waste
+            "labwarePositions": "",  # (string) leave empty if you are going to provide a sequence name above. 'LabwareId1, positionId1; LabwareId2,positionId2; ....'
+            "sequenceCounting": 0,  # (integer)  0=don´t autoincrement,  1=Autoincrement.  Value omitted if ejecting to default waste
+            "tipEjectToKnownPosition": 0,  # (integer) 0=Eject to specified sequence position,  1=Eject on tip pick up position, 2=Eject on default waste
+        },
+    ),
+    "mph384Aspirate": (
+        "ASPIRATE384",
+        {
+            "aspirateSequence": "",  # (string) leave empty if you are going to provide specific labware-positions below
+            "labwarePositions": "",  # (string) leave empty if you are going to provide a sequence name above. LabwareId1, positionId1; LabwareId2,positionId2; ....
+            "aspirateVolume": None,  # (float)  single volume used for all channels in the head. There´s no individual control of each channel volume in multi-probe heads.
+            "liquidClass": None,  # (string)
+            "sequenceCounting": 0,  # (integer)  0=don´t autoincrement,  1=Autoincrement
+            "aspirateMode": 0,  # (integer) 0=Normal Aspiration, 1=Consecutive (don´t aspirate blowout), 2=Aspirate all
+            "capacitiveLLD": 0,  # (integer) 0=Off, 1=Max, 2=High, 3=Mid, 4=Low, 5=From labware definition
+            "liquidFollowing": 0,  # (integer) 0=Off , 1=On
+            "submergeDepth": 2.0,  # (float) mm of immersion below liquid´s surface to start aspiration when using LLD
+            "liquidHeight": 1.0,  # (float) mm above container´s bottom to start aspiration when not using LLD
+            "mixCycles": 0,  # (integer) number of mixing cycles (1 cycle = 1 asp + 1 disp)
+            "mixPosition": 0.0,  # (float) additional immersion mm below aspiration position to start mixing
+            "mixVolume": 0.0,  # (float) mix volume
+            "airTransportRetractDist": 5.0,  # (float) mm to move up in Z after finishing the aspiration at a fixed height before aspirating 'transport air'
+        },
+    ),
+    "mph384Dispense": (
+        "DISPENSE384",
+        {
+            "dispenseSequence": "",  # (string) leave empty if you are going to provide specific labware-positions below
+            "labwarePositions": "",  # (string) leave empty if you are going to provide a sequence name above. LabwareId1, positionId1; LabwareId2,positionId2; ....
+            "dispenseVolume": None,  # (float) single volume used for all channels in the head. There´s no individual control of each channel volume in multi-probe heads.
+            "liquidClass": None,  # (string)
+            "sequenceCounting": 0,  # (integer)  0=don´t autoincrement,  1=Autoincrement
+            "dispenseMode": 8,  # (integer) 0=Jet Part, 1=Jet Empty, 2=Surface Part, 3=Surface Empty,4=Jet Drain tip, 8=From liquid class, 9=Blowout tip
+            "capacitiveLLD": 0,  # (integer) 0=Off, 1=Max, 2=High, 3=Mid, 4=Low, 5=From labware definition
+            "liquidFollowing": 0,  # (integer)  0=Off , 1=On
+            "submergeDepth": 2.0,  # (float) mm of immersion below liquid´s surface to start dispense when using LLD
+            "liquidHeight": 1.0,  # (float) mm above container´s bottom to start dispense when not using LLD
+            "mixCycles": 0,  # (integer)  number of mixing cycles (1 cycle = 1 asp + 1 disp)
+            "mixPosition": 0.0,  # (float)  additional immersion mm below dispense position to start mixing
+            "mixVolume": 0.0,  # (float)  mix volume
+            "airTransportRetractDist": 5.0,  # (float) mm to move up in Z after finishing the dispense at a fixed height before aspirating 'transport air'
+            "zMoveAfterStep": 0,  # (integer) 0=normal, 1=Minimized (Attention!!! this depends on labware clearance height, can crash).
+            "sideTouch": 0,  # (integer) 0=Off , 1=On
+        },
+    ),
     'iSwapGet':('ISWAP_GET', {
         'plateSequence':'', # leave empty if you are going to provide specific plate labware-position below
         'plateLabwarePositions':'', # leave empty if you are going to provide a plate sequence name above. LabwareId1, positionId1; 
