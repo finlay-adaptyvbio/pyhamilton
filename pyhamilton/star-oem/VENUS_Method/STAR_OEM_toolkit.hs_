@@ -1,6 +1,6 @@
 
 // this ALWAYS GENERATED file contains the sub-method library header
-// Generated at 12/5/2022 9:23:09 PM
+// Generated at 13/02/2023 12:20:42
 
 #pragma once
 #ifndef HSL_RUNTIME
@@ -24,6 +24,10 @@ function Inheco_TEC_StartTemperatureControl( variable ControllerID, variable Dev
 function Inheco_TEC_StopTemperatureControl( variable ControllerID, variable DeviceID, variable & o_stepReturn ) void { }
 function Inheco_TEC_Terminate( variable StopAllDevices, variable & o_stepReturn ) void { }
 function Initialize( device & ML_STAR, variable initializeAlways, variable & o_stepReturn ) void { }
+function MPH384_Aspirate( device & ML_STAR, sequence & aspirateSequence, variable aspirateVolume, variable liquidClass, variable sequenceCounting, variable aspirateMode, variable capacitiveLLD, variable liquidFollowing, variable submergeDepth, variable liquidHeight, variable mixCycles, variable mixPosition, variable mixVolume, variable airTransportRetractDist, variable & o_stepReturn, variable & o_liquidLevel_mm, variable & o_liquidLevel_mL, variable & o_stepReturn_PositionIDs ) void { }
+function MPH384_Dispense( device & ML_STAR, sequence & dispenseSequence, variable dispenseVolume, variable liquidClass, variable sequenceCounting, variable dispenseMode, variable capacitiveLLD, variable liquidFollowing, variable submergeDepth, variable liquidHeight, variable mixCycles, variable mixPosition, variable mixVolume, variable airTransportRetractDist, variable zMoveAfterStep, variable sideTouch, variable & o_stepReturn, variable & o_liquidLevel_mm, variable & o_liquidLevel_mL, variable & o_stepReturn_PositionIDs ) void { }
+function MPH384_TipEject( device & ML_STAR, sequence & tipEjectSequence, variable sequenceCounting, variable tipEjectToKnownPosition, variable & o_stepReturn, variable & o_stepReturn_PositionIDs ) void { }
+function MPH384_TipPickUp( device & ML_STAR, sequence & tipSequence, variable tipMode, variable headPatternVariable, variable sequenceCounting, variable reducedPatternMode, variable headPatternAsVariable, variable pickUpFromTipLifter, variable & o_stepReturn, variable & o_stepReturn_PositionIDs ) void { }
 function MPH96_Aspirate( device & ML_STAR, sequence & aspirateSequence, variable aspirateVolume, variable channelVariable, variable liquidClass, variable sequenceCounting, variable aspirateMode, variable capacitiveLLD, variable liquidFollowing, variable submergeDepth, variable liquidHeight, variable mixCycles, variable mixPosition, variable mixVolume, variable airTransportRetractDist, variable & o_stepReturn, variable & o_liquidLevel_mm, variable & o_liquidLevel_mL, variable & o_stepReturn_PositionIDs ) void { }
 function MPH96_Dispense( device & ML_STAR, sequence & dispenseSequence, variable dispenseVolume, variable liquidClass, variable sequenceCounting, variable dispenseMode, variable capacitiveLLD, variable liquidFollowing, variable submergeDepth, variable liquidHeight, variable mixCycles, variable mixPosition, variable mixVolume, variable airTransportRetractDist, variable zMoveAfterStep, variable sideTouch, variable & o_stepReturn, variable & o_liquidLevel_mm, variable & o_liquidLevel_mL, variable & o_stepReturn_PositionIDs ) void { }
 function MPH96_TipEject( device & ML_STAR, sequence & tipEjectSequence, variable sequenceCounting, variable tipEjectToKnownPosition, variable & o_stepReturn, variable & o_stepReturn_PositionIDs ) void { }
@@ -42,4 +46,4 @@ function pH_Measure( variable i_intModuleID, variable i_fltTemperature, variable
 #ifdef HSL_RUNTIME
 #include __filename__ ".hsi"
 #endif
-// $$author=stefa$$valid=0$$time=2022-12-05 21:23$$checksum=bab71cea$$length=082$$
+// $$author=Adaptyvbio$$valid=0$$time=2023-02-13 12:20$$checksum=cc3853c8$$length=087$$
