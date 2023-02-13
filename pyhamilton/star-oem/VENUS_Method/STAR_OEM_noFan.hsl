@@ -1704,8 +1704,8 @@ HSLJsonLib::GetStringProperty(objJSONFromServer, Translate("lidLabwarePositions"
 if (labwarePositions != "")
 {
 // }} ""
-// {{{ 436 1 0 "47dfcbb5_d784_48bb_b36b97509434a3a1" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
-BuildTempSequenceFromPositions(labwarePositions, seq);
+// {{{ 436 1 0 "3d94498b_2580_4802_978944df653424ce" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+BuildTempSequenceFromPositions(labwarePositions, lidSeq);
 // }} ""
 // {{ 437 1 0 "c6b60302_7344_4277_bc6d10eb019a6479" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
 }
@@ -1922,8 +1922,8 @@ HSLJsonLib::GetStringProperty(objJSONFromServer, Translate("lidLabwarePositions"
 if (labwarePositions != "")
 {
 // }} ""
-// {{{ 504 1 0 "2455f68c_be4e_4a21_9e9e78f78f6e8e3c" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
-BuildTempSequenceFromPositions(labwarePositions, seq);
+// {{{ 504 1 0 "137b0c9f_4766_4170_8e33e83c1155aaf1" "{7C4EF7A7-39BE-406a-897F-71F3A35B4093}"
+BuildTempSequenceFromPositions(labwarePositions, lidSeq);
 // }} ""
 // {{ 505 1 0 "c4165ca5_f7f8_4246_a768df51ac472dc6" "{B31F3531-5D80-11d4-A5EB-0050DA737D89}"
 }
@@ -7192,4 +7192,4 @@ STAR_OEM_TOOLKIT_MPE::_ExitLibrary();
 // }} ""
 
 
-// $$author=Adaptyvbio$$valid=0$$time=2023-02-13 12:28$$checksum=e0869631$$length=087$$
+// $$author=Adaptyvbio$$valid=0$$time=2023-02-13 12:38$$checksum=47fcb6e2$$length=087$$
