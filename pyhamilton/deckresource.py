@@ -529,3 +529,104 @@ class FalconCarrier24(DeckResource):
 
     def position_id(self, idx):
         return self.positions[idx]
+
+class Standard384(DeckResource):
+    """Labware types with 384 positions that use a letter-number id scheme like `'A1'`."""
+
+    def well_coords(self, idx):
+        self._assert_idx_in_range(idx)
+        return int(idx) // 16, int(idx) % 16
+
+    def _alignment_delta(self, start, end):
+        [self._assert_idx_in_range(p) for p in (start, end)]
+        xs, ys = self.well_coords(start)
+        xe, ye = self.well_coords(end)
+        return (
+            xe - xs,
+            ye - ys,
+            [DeckResource.align.STD_384]
+            + ([DeckResource.align.VERTICAL] if xs == xe and ys != ye else []),
+        )
+
+    def position_id(self, idx):
+        x, y = self.well_coords(idx)
+        return "ABCDEFGHIJKLMNOP"[y] + str(x + 1)
+
+class Tip384(Standard384):
+    def __init__(self, layout_name):
+        self._layout_name = layout_name
+        self._num_items = 384
+        self.resource_type = DeckResource.types.TIP
+        self._items = [Tip(self, i) for i in range(self._num_items)]
+
+    def position_id(self, idx):  # tips use 1-indexed int ids descending columns first
+        self._assert_idx_in_range(idx)
+        return str(idx + 1)  # switch to standard advance through row first
+
+class Plate384(Standard384):
+    def __init__(self, layout_name):
+        self._layout_name = layout_name
+        self._num_items = 384
+        self.resource_type = DeckResource.types.VESSEL
+        self._items = [Vessel(self, i) for i in range(self._num_items)]
+class Lid(DeckResource):
+    def __init__(self, layout_name):
+        self._layout_name = layout_name
+        self._num_items = 1
+        self.resource_type = DeckResource.types.VESSEL
+        self._items = [Vessel(self, i) for i in range(self._num_items)]
+
+    def well_coords(self, idx):
+        self._assert_idx_in_range(idx)
+        return int(idx) // 1, int(idx) % 1
+
+    def _alignment_delta(self, start, end):
+        [self._assert_idx_in_range(p) for p in (start, end)]
+        xs, ys = self.well_coords(start)
+        xe, ye = self.well_coords(end)
+        return (
+            xe - xs,
+            ye - ys,
+            [DeckResource.align.VERTICAL] if xs == xe and ys != ye else [],
+        )
+
+    def position_id(self, idx):  # tips use 1-indexed int ids descending columns first
+        self._assert_idx_in_range(idx)
+        return str(idx + 1)  # switch to standard advance through row first
+
+
+class Reservoir300mL(Standard384):
+    def __init__(self, layout_name):
+        self._layout_name = layout_name
+        self._num_items = 384
+        self.resource_type = DeckResource.types.VESSEL
+        self._items = [Vessel(self, i) for i in range(self._num_items)]
+
+    def position_id(self, idx):
+        self._assert_idx_in_range(idx)
+        return str(idx + 1)
+
+class EppiCarrier24(DeckResource):
+    def __init__(self, layout_name):
+        self._layout_name = layout_name
+        self._num_items = 24
+        self.positions = [str(i + 1) for i in range(self._num_items)]
+        self.resource_type = DeckResource.types.VESSEL
+        self._items = [Vessel(self, i) for i in range(self._num_items)]
+
+    def well_coords(self, idx):
+        self._assert_idx_in_range(idx)
+        return int(idx) // 24, int(idx) % 24
+
+    def _alignment_delta(self, start, end):
+        [self._assert_idx_in_range(p) for p in (start, end)]
+        xs, ys = self.well_coords(start)
+        xe, ye = self.well_coords(end)
+        return (
+            xe - xs,
+            ye - ys,
+            [DeckResource.align.VERTICAL] if xs == xe and ys != ye else [],
+        )
+
+    def position_id(self, idx):
+        return self.positions[idx]
